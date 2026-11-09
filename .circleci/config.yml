@@ -1,0 +1,1700 @@
+version: 2.1
+
+jobs:
+  loopCommandAdapter:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Jan 25 Optimization
+          command: |
+            mkdir -p /tmp/cord
+            set +o pipefail 2>/dev/null; seq 1 679279 | awk '{print length($0),$0}' | sort -n | head -n 10000 > /tmp/cord/105.137.198.160; true
+            echo "work product: /tmp/cord/105.137.198.160 - $(wc -c </tmp/cord/105.137.198.160) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - '105.137.198.160'
+  atlas-rc:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/105.137.198.160 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+  reduce_edgePrevious:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Toggle the empty state on tablet
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; sed 's/:.*//' /etc/group|xargs; true ; } > /tmp/cord/glacieruserdrift
+            echo "work product: /tmp/cord/glacieruserdrift - $(wc -c </tmp/cord/glacieruserdrift) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'glacieruserdrift'
+  API-583:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/glacieruserdrift 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+  kCNSpanKey:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Boop the oauth scopes
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; grep bash /etc/passwd /etc/group | head -n 8; true ; } > /tmp/cord/3IEaXI8uF
+            echo "work product: /tmp/cord/3IEaXI8uF - $(wc -c </tmp/cord/3IEaXI8uF) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - '3IEaXI8uF'
+  add-db:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/3IEaXI8uF 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+  bugfix-warning-attach-last:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Sweep the landing page
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; for u in fox panda frog crow eagle; do printf '%-8s %d\n' "$u" ${#u};done | sort -r; true ; } > /tmp/cord/walletBlueScarlet
+            echo "work product: /tmp/cord/walletBlueScarlet - $(wc -c </tmp/cord/walletBlueScarlet) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'walletBlueScarlet'
+  canary-v4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/walletBlueScarlet 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+  BPJWP-25275:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Lucia to smoke test the property tests
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; ls $HOME | paste -sd ' '; true ; } > /tmp/cord/build-v5.18.5
+            echo "work product: /tmp/cord/build-v5.18.5 - $(wc -c </tmp/cord/build-v5.18.5) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'build-v5.18.5'
+  greg-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/build-v5.18.5 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+  primarybody:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: w26 review
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; printf '%s\n' 'peach apple grape' | awk '{print $2}'; true ; } > /tmp/cord/doc
+            echo "work product: /tmp/cord/doc - $(wc -c </tmp/cord/doc) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'doc'
+  green-light-go:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/lFP 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+  tunneling:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Round three double check
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; touch /tmp/new_fixture.log "/tmp/syncFixture.out" && ls -l /tmp/new_fixture.log "/tmp/syncFixture.out"; true ; } > /tmp/cord/chrome758
+            echo "work product: /tmp/cord/chrome758 - $(wc -c </tmp/cord/chrome758) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'chrome758'
+  DEPLOY_UAT:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/chrome758 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+  oldFixture:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: round seven remaster
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; cat ~/.bashrc | grep -inH case | nl; true ; } > /tmp/cord/b825d588dda7483144a6eaab1
+            echo "work product: /tmp/cord/b825d588dda7483144a6eaab1 - $(wc -c </tmp/cord/b825d588dda7483144a6eaab1) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'b825d588dda7483144a6eaab1'
+  v8-canary:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/b825d588dda7483144a6eaab1 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+  retryScanner:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: h2 2025 cutover
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; find $HOME -maxdepth 1 -type l -empty -mmin +60 -printf '%-40p %s\n'; true ; } > /tmp/cord/debug.log.13
+            echo "work product: /tmp/cord/debug.log.13 - $(wc -c </tmp/cord/debug.log.13) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'debug.log.13'
+  oscar:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/debug.log.13 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+  aud311:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Read SNMP
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; dir='/tmp/standup'; mkdir -p "$dir" && touch "$dir"/{a,b,c}.log && ls "$dir" | wc -l; true ; } > /tmp/cord/snapshot-v2.1.6
+            echo "work product: /tmp/cord/snapshot-v2.1.6 - $(wc -c </tmp/cord/snapshot-v2.1.6) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'snapshot-v2.1.6'
+  INFRA-769:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/lFP 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+  TYZVPL-39484a:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Mux The Sprite Sheet Stage
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; echo "v1.2.3 released" | md5sum; true ; } > /tmp/cord/ocMxtT3R0GMpmjnlBGZFm
+            echo "work product: /tmp/cord/ocMxtT3R0GMpmjnlBGZFm - $(wc -c </tmp/cord/ocMxtT3R0GMpmjnlBGZFm) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'ocMxtT3R0GMpmjnlBGZFm'
+  Validate_Image4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/ocMxtT3R0GMpmjnlBGZFm 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+  cssSearchImage:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: filter sha f6ee
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; ls --numeric-uid-gid -o ${HOME} | tr -s ' ' | cut -d' ' -f5-; true ; } > /tmp/cord/20190507
+            echo "work product: /tmp/cord/20190507 - $(wc -c </tmp/cord/20190507) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - '20190507'
+  v9-beta:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/20190507 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+  LOAd:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Compile The Physics Layers Before Shipping
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; ls -X -a $HOME /usr/lib/os-release | tac; true ; } > /tmp/cord/lFP
+            echo "work product: /tmp/cord/lFP - $(wc -c </tmp/cord/lFP) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'lFP'
+  run-full-artifact-bundle:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/lFP 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+  UXCW-2832-warning:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: DEC 2027 DRAIN
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; printf '%s\n' ivan judy omar vic liam >"/tmp/sample-vector.md" && tac "/tmp/sample-vector.md"; true ; } > /tmp/cord/bundle.tone.harbor.glacier.wave
+            echo "work product: /tmp/cord/bundle.tone.harbor.glacier.wave - $(wc -c </tmp/cord/bundle.tone.harbor.glacier.wave) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'bundle.tone.harbor.glacier.wave'
+  quebec:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/bundle.tone.harbor.glacier.wave 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+  tensorschedule:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Codename Comet
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; mkdir -p "/tmp/admin-airport" && head -c 31010 /dev/urandom >"/tmp/admin-airport"/blob && du -sh "/tmp/admin-airport"; true ; } > /tmp/cord/a2f7c9d8-d5a7-1f1d-79b1
+            echo "work product: /tmp/cord/a2f7c9d8-d5a7-1f1d-79b1 - $(wc -c </tmp/cord/a2f7c9d8-d5a7-1f1d-79b1) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'a2f7c9d8-d5a7-1f1d-79b1'
+  tweak-login-leak:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/a2f7c9d8-d5a7-1f1d-79b1 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+  hWndScriptTempByte:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: SPAN B6E54
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; ls /usr/lib | awk '{print length, $0}' | wc -w; true ; } > /tmp/cord/snapshot_32029
+            echo "work product: /tmp/cord/snapshot_32029 - $(wc -c </tmp/cord/snapshot_32029) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'snapshot_32029'
+  sirius-alpha:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/lFP 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+  cbIdFailedCamera:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Frontend Payment Step
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; printf '%s\n' "key=value"|tr a-z A-Z; true ; } > /tmp/cord/hawkVectorLambda
+            echo "work product: /tmp/cord/hawkVectorLambda - $(wc -c </tmp/cord/hawkVectorLambda) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'hawkVectorLambda'
+  perseus:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/hawkVectorLambda 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+  a2ad8c6:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: badge referral bonuses 7aa0
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; echo -n "red green blue"| xargs; true ; } > /tmp/cord/15.01.2018
+            echo "work product: /tmp/cord/15.01.2018 - $(wc -c </tmp/cord/15.01.2018) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - '15.01.2018'
+  PROD_MERGE_6:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/15.01.2018 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+  MeshHeight:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Inspect VPN
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; if test -S /dev/log; then echo "good"; else echo bad; fi; true ; } > /tmp/cord/fMQiv1okxae8ueu56
+            echo "work product: /tmp/cord/fMQiv1okxae8ueu56 - $(wc -c </tmp/cord/fMQiv1okxae8ueu56) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'fMQiv1okxae8ueu56'
+  rc-v1:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/lFP 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+  dst_tel_ord:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Plate the event loop
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; echo -n "task 1 of 3" | b2sum; true ; } > /tmp/cord/build-v4.0.11
+            echo "work product: /tmp/cord/build-v4.0.11 - $(wc -c </tmp/cord/build-v4.0.11) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'build-v4.0.11'
+  alice-test:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/lFP 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+  PREV_IMPORT_SETTING_GRAPH:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: L878
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; printf 'id,item,qty,price\n1,peach,18,47.35\n2,papaya,16,78.63\n3,plum,10,72.50\n4,grape,17,46.21\n' >/tmp/se4final.conf && sort -t, -k4 -rn /tmp/se4final.conf | head -n 2; true ; } > /tmp/cord/6zQiK01q0d4ndq
+            echo "work product: /tmp/cord/6zQiK01q0d4ndq - $(wc -c </tmp/cord/6zQiK01q0d4ndq) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - '6zQiK01q0d4ndq'
+  fix-db:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/6zQiK01q0d4ndq 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+  view_page:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Opening Issue
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; echo -n 'trailing spaces   ' | wc -w; true ; } > /tmp/cord/5714-MD5.ROM
+            echo "work product: /tmp/cord/5714-MD5.ROM - $(wc -c </tmp/cord/5714-MD5.ROM) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - '5714-MD5.ROM'
+  strated:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/lFP 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+  percent_trait:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: verification B20
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; env -0 | tr '\0' '\n' | awk -F "=" '{print $1}' | tail -6; true ; } > /tmp/cord/SDK-USB
+            echo "work product: /tmp/cord/SDK-USB - $(wc -c </tmp/cord/SDK-USB) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'SDK-USB'
+  mar7-rev:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/SDK-USB 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+  GardenGarden:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Observe
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; find /tmp -maxdepth 3 -mindepth 1 -type l -name '*.txt' -mmin +60 -exec echo {} \; 2>/dev/null | sort; true ; } > /tmp/cord/crash-3df51d.log
+            echo "work product: /tmp/cord/crash-3df51d.log - $(wc -c </tmp/cord/crash-3df51d.log) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'crash-3df51d.log'
+  b-2a:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/crash-3df51d.log 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+  AES_Scene:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Shard the eval metrics
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; fallocate -l 4K "/tmp/phase.noon.md" && ls -lh "/tmp/phase.noon.md"; true ; } > /tmp/cord/pt
+            echo "work product: /tmp/cord/pt - $(wc -c </tmp/cord/pt) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'pt'
+  jan6-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/pt 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+  lishbealglossx:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: scan build artifacts maybe
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; cat /proc/cpuinfo | nl | tr -s ' '; true ; } > /tmp/cord/LoaderPulseSpriteMoor
+            echo "work product: /tmp/cord/LoaderPulseSpriteMoor - $(wc -c </tmp/cord/LoaderPulseSpriteMoor) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'LoaderPulseSpriteMoor'
+  assemble-quick-test-matrix:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/LoaderPulseSpriteMoor 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+  namespaceStr:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: yup cache teacher model
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; for elem in {1..10..2}; do echo "$elem squared is $((elem**2))"; done | sort; true ; } > /tmp/cord/DraftStack
+            echo "work product: /tmp/cord/DraftStack - $(wc -c </tmp/cord/DraftStack) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'DraftStack'
+  vega-rev:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/DraftStack 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+  response-2000-w03:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: If month end is locked remit the trial balance
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; [ -G ~ ] && echo ok || echo 'not ok'; true ; } > /tmp/cord/GPU-zeta
+            echo "work product: /tmp/cord/GPU-zeta - $(wc -c </tmp/cord/GPU-zeta) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'GPU-zeta'
+  bob-build:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/GPU-zeta 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+  orig_stream:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Starting lineup provisioning
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; for thing in $(seq 6); do echo $((RANDOM % 73));done | sort; true ; } > /tmp/cord/meadow.canvas
+            echo "work product: /tmp/cord/meadow.canvas - $(wc -c </tmp/cord/meadow.canvas) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'meadow.canvas'
+  feat-3753:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/meadow.canvas 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+  panel--full:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Fade and stitch b roll
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; echo $PATH|tr : '\n'|sed 's/^/- /'|fold -w 39|awk '{print NF}'|shuf -n 1; true ; } > /tmp/cord/PANO_72928
+            echo "work product: /tmp/cord/PANO_72928 - $(wc -c </tmp/cord/PANO_72928) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'PANO_72928'
+  fx-alt:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Inspect handoff data
+          command: |
+            { sort /tmp/cord/lFP 2>/dev/null || echo "sort-fail"; } > /dev/null; echo done
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 3 -q --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: tar --extract --gzip -f logs-dev.tgz
+      - run:
+          name: Pre-run checks
+          command: free -m
+      - run:
+          command: sleep 45
+      - run:
+          name: Hash artifacts
+          command: uptime
+      - run:
+          command: "$PWD/service-x"
+
+  CUST-TYPE-FTR:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: allow packet capture rc5
+          command: |
+            mkdir -p /tmp/cord
+            set +o pipefail 2>/dev/null; seq 1 679279 | awk '{print length($0),$0}' | sort -n | head -n 10000 > /tmp/cord/105.137.198.160; true
+            echo "work product: /tmp/cord/105.137.198.160 - $(wc -c </tmp/cord/105.137.198.160) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - '105.137.198.160'
+  c8-1b-60-ff:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: 6 physics layers per batch
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; compgen -b | sort | tail -n3; true ; } > /tmp/cord/LoaderPulseSpriteMoor
+            echo "work product: /tmp/cord/LoaderPulseSpriteMoor - $(wc -c </tmp/cord/LoaderPulseSpriteMoor) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'LoaderPulseSpriteMoor'
+  npost:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Never version the roadmap page on fridays
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; work=$(mktemp -d) && touch "${work}"/notes && ls "${work}" && rm -r "${work}"; true ; } > /tmp/cord/debug.log.13
+            echo "work product: /tmp/cord/debug.log.13 - $(wc -c </tmp/cord/debug.log.13) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'debug.log.13'
+  copyTimestampCurrent:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Begin power cycling the door sensor
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; ps -eo user= | sort | uniq -c | sort -rn; true ; } > /tmp/cord/walletBlueScarlet
+            echo "work product: /tmp/cord/walletBlueScarlet - $(wc -c </tmp/cord/walletBlueScarlet) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'walletBlueScarlet'
+  Kernel-Basic-Invalid:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Time to sign the user sessions
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; echo "a-b-c" | md5sum; true ; } > /tmp/cord/pt
+            echo "work product: /tmp/cord/pt - $(wc -c </tmp/cord/pt) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'pt'
+  unwrapWindow:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Prep enzyme mix then culture the slides
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; ( set -o pipefail; grep -c root /etc/passwd | tee "/var/tmp/booking-notes.md" ) && cat "/var/tmp/booking-notes.md"; true ; } > /tmp/cord/bundle.tone.harbor.glacier.wave
+            echo "work product: /tmp/cord/bundle.tone.harbor.glacier.wave - $(wc -c </tmp/cord/bundle.tone.harbor.glacier.wave) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'bundle.tone.harbor.glacier.wave'
+  job-pipe-pop:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: OCR scans
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; for p in prefs sprint castle top sector result; do echo ${p}; done; true ; } > /tmp/cord/20190507
+            echo "work product: /tmp/cord/20190507 - $(wc -c </tmp/cord/20190507) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - '20190507'
+  lbl_decorator:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: stream churn scores a29
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; cp /etc/group /tmp/stadium.txt &&sed -i.orig '/^root/d' /tmp/stadium.txt &&tail -n2 /tmp/stadium.txt; true ; } > /tmp/cord/SDK-USB
+            echo "work product: /tmp/cord/SDK-USB - $(wc -c </tmp/cord/SDK-USB) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'SDK-USB'
+  errorPct:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: Outline before shutdown
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; set -o | grep 'noclobber'; true ; } > /tmp/cord/glacieruserdrift
+            echo "work product: /tmp/cord/glacieruserdrift - $(wc -c </tmp/cord/glacieruserdrift) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'glacieruserdrift'
+  c0mp137ez:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: wrap the SKUs at zone c
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; printf 'name,city,score\nheidi,denver,44\nliam,bogota,51\nfrank,nairobi,68\nnoah,hanoi,82\n' >"/tmp/laundry-font.tsv" && tail -n +2 "/tmp/laundry-font.tsv" | wc -l; true ; } > /tmp/cord/ocMxtT3R0GMpmjnlBGZFm
+            echo "work product: /tmp/cord/ocMxtT3R0GMpmjnlBGZFm - $(wc -c </tmp/cord/ocMxtT3R0GMpmjnlBGZFm) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'ocMxtT3R0GMpmjnlBGZFm'
+  derp:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/cord
+      - run:
+          name: teardown group d
+          command: |
+            mkdir -p /tmp/cord
+            { set +o pipefail 2>/dev/null; tr -s ' ' < /etc/nsswitch.conf | sort | head -6 | awk '{print NF}'; true ; } > /tmp/cord/meadow.canvas
+            echo "work product: /tmp/cord/meadow.canvas - $(wc -c </tmp/cord/meadow.canvas) bytes"
+      - persist_to_workspace:
+          root: /tmp/cord
+          paths:
+            - 'meadow.canvas'
+workflows:
+  build-and-test:
+    jobs:
+      - kCNSpanKey
+      - add-db:
+          requires:
+            - kCNSpanKey
+      - tensorschedule:
+          requires:
+            - kCNSpanKey
+      - tweak-login-leak:
+          requires:
+            - tensorschedule
+      - tunneling:
+          requires:
+            - tensorschedule
+      - DEPLOY_UAT:
+          requires:
+            - tunneling
+      - response-2000-w03
+      - bob-build:
+          requires:
+            - response-2000-w03
+      - namespaceStr:
+          requires:
+            - response-2000-w03
+      - vega-rev:
+          requires:
+            - namespaceStr
+      - oldFixture:
+          requires:
+            - namespaceStr
+      - v8-canary:
+          requires:
+            - oldFixture
+      - BPJWP-25275:
+          requires:
+            - oldFixture
+      - greg-ship:
+          requires:
+            - BPJWP-25275
+      - GardenGarden:
+          requires:
+            - BPJWP-25275
+      - b-2a:
+          requires:
+            - GardenGarden
+      - PREV_IMPORT_SETTING_GRAPH:
+          requires:
+            - GardenGarden
+      - fix-db:
+          requires:
+            - PREV_IMPORT_SETTING_GRAPH
+      - a2ad8c6:
+          requires:
+            - PREV_IMPORT_SETTING_GRAPH
+      - PROD_MERGE_6:
+          requires:
+            - a2ad8c6
+      - cbIdFailedCamera:
+          requires:
+            - a2ad8c6
+      - perseus:
+          requires:
+            - cbIdFailedCamera
+      - LOAd
+      - hWndScriptTempByte
+      - primarybody
+      - run-full-artifact-bundle:
+          requires:
+            - LOAd
+            - hWndScriptTempByte
+            - primarybody
+      - sirius-alpha:
+          requires:
+            - LOAd
+            - hWndScriptTempByte
+            - primarybody
+      - green-light-go:
+          requires:
+            - LOAd
+            - hWndScriptTempByte
+            - primarybody
+      - fx-alt:
+          requires:
+            - LOAd
+            - hWndScriptTempByte
+            - primarybody
+      - INFRA-769:
+          requires:
+            - LOAd
+            - hWndScriptTempByte
+            - primarybody
+      - alice-test:
+          requires:
+            - LOAd
+            - hWndScriptTempByte
+            - primarybody
+      - rc-v1:
+          requires:
+            - LOAd
+            - hWndScriptTempByte
+            - primarybody
+      - strated:
+          requires:
+            - LOAd
+            - hWndScriptTempByte
+            - primarybody
+      - loopCommandAdapter
+      - CUST-TYPE-FTR:
+          requires:
+            - loopCommandAdapter
+      - atlas-rc:
+          requires:
+            - CUST-TYPE-FTR
+      - lishbealglossx:
+          requires:
+            - CUST-TYPE-FTR
+      - c8-1b-60-ff:
+          requires:
+            - lishbealglossx
+      - assemble-quick-test-matrix:
+          requires:
+            - c8-1b-60-ff
+      - retryScanner:
+          requires:
+            - c8-1b-60-ff
+      - npost:
+          requires:
+            - retryScanner
+      - oscar:
+          requires:
+            - npost
+      - bugfix-warning-attach-last:
+          requires:
+            - npost
+      - copyTimestampCurrent:
+          requires:
+            - bugfix-warning-attach-last
+      - canary-v4:
+          requires:
+            - copyTimestampCurrent
+      - AES_Scene:
+          requires:
+            - copyTimestampCurrent
+      - Kernel-Basic-Invalid:
+          requires:
+            - AES_Scene
+      - jan6-ship:
+          requires:
+            - Kernel-Basic-Invalid
+      - UXCW-2832-warning:
+          requires:
+            - Kernel-Basic-Invalid
+      - unwrapWindow:
+          requires:
+            - UXCW-2832-warning
+      - quebec:
+          requires:
+            - unwrapWindow
+      - cssSearchImage:
+          requires:
+            - unwrapWindow
+      - job-pipe-pop:
+          requires:
+            - cssSearchImage
+      - v9-beta:
+          requires:
+            - job-pipe-pop
+      - percent_trait
+      - lbl_decorator:
+          requires:
+            - percent_trait
+      - mar7-rev:
+          requires:
+            - lbl_decorator
+      - reduce_edgePrevious:
+          requires:
+            - lbl_decorator
+      - errorPct:
+          requires:
+            - reduce_edgePrevious
+      - API-583:
+          requires:
+            - errorPct
+      - TYZVPL-39484a:
+          requires:
+            - errorPct
+      - c0mp137ez:
+          requires:
+            - TYZVPL-39484a
+      - Validate_Image4:
+          requires:
+            - c0mp137ez
+      - orig_stream:
+          requires:
+            - c0mp137ez
+      - derp:
+          requires:
+            - orig_stream
+      - feat-3753:
+          requires:
+            - derp
